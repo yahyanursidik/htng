@@ -1,0 +1,54 @@
+/* Hallmark · genre: playful · macrostructure: Catalogue · design-system: design.md · designed-as-app
+ * Source: user-supplied Duolingo design reference, adapted for concept learning.
+ * Pre-emit critique: P5 H4 E4 S5 R5 V4. No mascot, rewards, gradients or shadows.
+ */
+/* Shared visual layer also reaches the existing self-contained lab routes.
+ * Specific selectors preserve each activity's geometry and state contracts.
+ */
+body :is(.primary-action,.number-line__primary-action,.symbolic-addition__primary-action,.story-problem__primary-action,.explain-strategy__primary,.transfer__primary),
+body .place-value button {
+  border: var(--rule-thin) solid var(--color-accent-edge);
+  border-block-end-width: var(--rule-frame);
+  border-radius: var(--radius-control);
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  min-height: 3rem;
+  font-weight: 800;
+}
+body :is(.primary-action,.number-line__primary-action,.symbolic-addition__primary-action,.story-problem__primary-action,.explain-strategy__primary,.transfer__primary)[data-state="success"] {
+  background: var(--color-success-surface);
+  color: var(--color-success);
+}
+body :is(.primary-action,.number-line__primary-action,.symbolic-addition__primary-action,.story-problem__primary-action,.explain-strategy__primary,.transfer__primary):disabled,
+body .place-value button:disabled {
+  background: var(--color-disabled);
+  color: var(--color-muted);
+  border-color: var(--color-rule);
+  opacity: 1;
+  cursor: not-allowed;
+  transform: none;
+}
+body :is(.number-line__start-option,.number-line__answer-choice,.answer-choice,.symbolic-addition__answer-choice):has(input:checked),
+body :is(.story-problem__event-grid,.story-problem__number-grid,.explain-strategy__choices,.transfer__choices) label:has(input:checked) {
+  color: var(--color-accent-ink);
+}
+body .number-line__marker,
+body .symbolic-addition__bridge-marker,
+body .symbolic-addition__equation>span:not(.symbolic-addition__operator),
+body .story-problem__equation>span {
+  color: var(--color-accent-ink);
+}
+/* Mathematical symbols remain ink even though the surrounding UI is green. */
+body :is(.symbolic-addition__operator,.story-problem__join) { color: var(--color-ink); }
+body :is(.ten-frame-activity,.number-line-activity,.symbolic-addition-activity,.story-problem,.explain-strategy,.transfer,.place-value) h1 {
+  font-weight: 900;
+  letter-spacing: -.02em;
+}
+@media (hover:hover) and (pointer:fine) {
+  body :is(.primary-action,.number-line__primary-action,.symbolic-addition__primary-action,.story-problem__primary-action,.explain-strategy__primary,.transfer__primary):not(:disabled):hover,
+  body .place-value button:not(:disabled):hover { text-decoration: underline; transform: none; }
+}
+@media (prefers-reduced-motion:reduce) {
+  body :is(.primary-action,.number-line__primary-action,.symbolic-addition__primary-action,.story-problem__primary-action,.explain-strategy__primary,.transfer__primary),
+  body .place-value button { transition: none; transform: none; }
+}

@@ -1,0 +1,31 @@
+---
+import { TenFrameActivity } from "../../components/math/TenFrame/TenFrameActivity";
+import { generateTenFrameProblem } from "../../learning/addition/ten-frame-generator";
+import "../../styles/base.css";
+import LabNavigation from "../../components/LabNavigation.astro";
+import BrandMetadata from "../../components/BrandMetadata.astro";
+
+const problem = generateTenFrameProblem({
+  seed: 20260816,
+  structure: "fills-ten",
+  concept: "make-ten",
+  requireLargerFirst: true,
+});
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="Aktivitas bingkai sepuluh untuk memahami penjumlahan." />
+    <title>Bingkai Sepuluh · PahamHitung</title>
+    <BrandMetadata />
+  </head>
+  <body>
+    <main class="activity-page">
+      <LabNavigation />
+      <TenFrameActivity problem={problem} client:load />
+    </main>
+  </body>
+</html>

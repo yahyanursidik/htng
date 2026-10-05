@@ -1,0 +1,9 @@
+---
+import { TransferActivity } from "../../components/math/Transfer/TransferActivity";
+import { generateTransferProblem } from "../../learning/addition/transfer-generator";
+import "../../styles/base.css";
+import LabNavigation from "../../components/LabNavigation.astro";
+import BrandMetadata from "../../components/BrandMetadata.astro";
+const problem = generateTransferProblem({ seed: 20260821 });
+---
+<!doctype html><html lang="id"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" /><title>Transfer · PahamHitung</title><BrandMetadata /></head><body><main class="activity-page"><LabNavigation/><TransferActivity problem={problem} client:load /></main></body></html>

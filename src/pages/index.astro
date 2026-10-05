@@ -1,0 +1,20 @@
+---
+import AppLayout from "../layouts/AppLayout.astro";
+import MathPreview from "../components/MathPreview.astro";
+import { gradeDescriptions } from "../learning/curriculum/catalog";
+const activities = [
+  { n: "A6", href: "/lab/ten-frame", title: "Bingkai Sepuluh", body: "Gabungkan dua kelompok dan lihat jumlahnya." },
+  { n: "A9", href: "/lab/number-line", title: "Garis Bilangan", body: "Mulai dari angka, lalu lompat maju." },
+  { n: "A10", href: "/lab/symbolic-addition", title: "Bentuk Angka", body: "Hubungkan gambar dengan a + b = c." },
+  { n: "A11", href: "/lab/story-problem", title: "Cerita Penjumlahan", body: "Temukan apa yang bertambah dalam cerita singkat." },
+  { n: "A12", href: "/lab/explain-strategy", title: "Jelaskan Caramu", body: "Pilih cara yang cocok dengan gambar matematika." },
+  { n: "A13", href: "/lab/transfer", title: "Pindahkan Pemahaman", body: "Cocokkan persamaan dengan cerita yang tepat." },
+  { n: "B1", href: "/lab/place-value", title: "Puluhan dan Satuan", body: "Gabungkan puluhan dengan puluhan, satuan dengan satuan." },
+];
+---
+<AppLayout title="Belajar matematika kelas 1–6"><section class="home-intro"><header class="page-heading"><h1>Matematika yang bisa dipahami.</h1><p>Dari menghitung benda sampai membandingkan data. Pilih kelas, lihat model, coba jawab, lalu jelaskan alasannya.</p><div class="actions"><a class="button" href="/belajar">Mulai belajar</a><a class="button button--quiet" href="/daftar">Daftar pendamping</a></div><p class="muted">Boleh mulai tanpa akun. Daftar sebagai pendamping untuk menyimpan catatan masing-masing anak.</p></header><MathPreview/></section>
+<nav class="grade-catalogue" aria-label="Pilih kelas">{gradeDescriptions.map((description,i)=><a class="grade-item" href={`/belajar/kelas-${i+1}`}><span class="grade-number">{i+1}</span><div><h2>Kelas {i+1}</h2><p>{description}</p><span>5 aktivitas inti</span></div><span aria-hidden="true">→</span></a>)}</nav>
+<section class="support-band"><h2>Belajar bersama, selangkah demi selangkah.</h2><p>Setiap sesi memiliki lima soal bervariasi, model yang bisa ditampilkan kembali, dan tiga tahap petunjuk. Catatan memisahkan jawaban tepat, alasan tepat, dan bantuan yang digunakan.</p><div class="actions"><a class="button button--quiet" href="/panduan">Panduan pendamping</a><a href="/keluarga">Kelola profil anak</a></div></section>
+<section class="section-stack"><header><h2>Lab penjumlahan yang sudah ada</h2><p>Mulai dari benda, beralih ke garis bilangan, lalu hubungkan dengan cerita dan simbol.</p></header><nav aria-label="Pilih aktivitas penjumlahan"><ul class="lab-links">{activities.map(activity=><li><a href={activity.href}><strong>{activity.title}</strong><span>{activity.body}</span></a></li>)}</ul></nav><p class="muted">Materi umum SD dengan fokus konsep. Kumpulan aktivitas ini belum mencakup seluruh silabus kelas 1–6.</p></section>
+<section class="support-band"><h2>Benda, gambar, dan simbol.</h2><p>Coba 14 permainan CPA kelas 1–6: susun, pindahkan, ukur, lalu hubungkan model dengan angka dan alasan. Kegiatan benda nyata tersedia untuk dicoba bersama pendamping.</p><a class="button" href="/cpa">Jelajahi CPA</a></section>
+</AppLayout>

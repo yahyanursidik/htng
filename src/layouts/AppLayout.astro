@@ -1,0 +1,16 @@
+---
+import "../styles/base.css";
+import "../styles/app.css";
+import AccountNav from "../components/account/AccountNav";
+import Brand from "../components/Brand.astro";
+import BrandMetadata from "../components/BrandMetadata.astro";
+const {title,description="Belajar matematika SD kelas 1–6 melalui model, percobaan, dan penjelasan.",learning=false}=Astro.props;
+const path=Astro.url.pathname;
+---
+<!doctype html><html lang="id"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/><meta name="description" content={description}/><title>{title} · PahamHitung</title><BrandMetadata /></head><body>
+<a class="skip-link" href="#main">Lewati ke isi</a>
+<header class:list={["site-header",{"site-header--learning":learning}]}><Brand compact={learning} tagline={!learning} />{learning?<nav aria-label="Navigasi utama"><a href="/belajar">Semua materi</a><a href="/progres">Catatan</a></nav>:<><nav aria-label="Navigasi utama"><a href="/belajar" aria-current={path.startsWith('/belajar')?'page':undefined}>Belajar</a><a href="/cpa" aria-current={path.startsWith('/cpa')?'page':undefined}>CPA</a><a href="/progres" aria-current={path==='/progres'?'page':undefined}>Catatan</a><a href="/panduan" aria-current={path==='/panduan'?'page':undefined}>Panduan</a></nav><div class="account-nav"><AccountNav client:load/></div></>}</header>
+<main id="main" class:list={["app-main",{"app-main--learning":learning}]}><slot/></main>
+<footer class:list={["site-footer",{"site-footer--learning":learning}]}><div class="site-footer__inner"><p class="site-footer__brand">PahamHitung</p><p>Pelan-pelan. Lihat, coba, lalu jelaskan.</p><div><span>Materi umum SD</span><a href="/lab">Lab penjumlahan</a><a href="/privasi">Privasi</a></div></div></footer>
+<noscript><p class="no-script">Aktifkan JavaScript untuk login dan latihan interaktif. Materi konsep dan panduan tetap dapat dibaca.</p></noscript>
+</body></html>

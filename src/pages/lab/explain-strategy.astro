@@ -1,0 +1,9 @@
+---
+import { ExplainStrategyActivity } from "../../components/math/ExplainStrategy/ExplainStrategyActivity";
+import { generateExplainStrategyProblem } from "../../learning/addition/explain-strategy-generator";
+import "../../styles/base.css";
+import LabNavigation from "../../components/LabNavigation.astro";
+import BrandMetadata from "../../components/BrandMetadata.astro";
+const problem = generateExplainStrategyProblem({ seed: 20260820, family: "count-on" });
+---
+<!doctype html><html lang="id"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" /><title>Jelaskan Caramu · PahamHitung</title><BrandMetadata /></head><body><main class="activity-page"><LabNavigation/><ExplainStrategyActivity problem={problem} client:load /></main></body></html>

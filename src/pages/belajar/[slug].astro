@@ -1,0 +1,22 @@
+---
+import AppLayout from "../../layouts/AppLayout.astro";
+import LessonPractice from "../../components/learning/LessonPractice";
+import CPAExample from "../../components/learning/CPAExample.astro";
+import "../../styles/cpa.css";
+import {lessons,gradeDescriptions} from "../../learning/curriculum/catalog";
+export function getStaticPaths(){return [...[1,2,3,4,5,6].map(grade=>({params:{slug:`kelas-${grade}`},props:{grade}})),...lessons.map(lesson=>({params:{slug:lesson.id},props:{lesson}}))];}
+const {grade,lesson}=Astro.props;
+const prerequisites=lesson?lessons.find(l=>l.id===lesson.prerequisite):null;
+---
+<AppLayout title={lesson?lesson.title:`Kelas ${grade}`} learning={!!lesson}>
+{grade?<>
+  <a class="back-link" href="/belajar">← Semua kelas</a>
+  <header class="page-heading"><h1>Matematika kelas {grade}</h1><p>{gradeDescriptions[grade-1]}. Pilih materi; urutan berikut dimulai dari fondasi menuju penerapannya.</p><a href={`/cpa#kelas-${grade}`}>Permainan CPA kelas {grade}</a></header>
+  <ol class="lesson-list">{lessons.filter(l=>l.grade===grade).map(l=><li><div><p class="muted">{l.domain}</p><h2>{l.title}</h2><p>{l.objective}</p></div><a class="button button--quiet" href={`/belajar/${l.id}`}>Mulai belajar</a></li>)}</ol><p>Ini kumpulan aktivitas inti, bukan seluruh silabus SD atau pengganti pembelajaran bersama guru.</p>
+</>:lesson&&<>
+  <a class="back-link" href={`/belajar/kelas-${lesson.grade}`}>← Kelas {lesson.grade}</a><header class="lesson-heading"><h1>{lesson.title}</h1><p>{lesson.objective}</p></header>
+  <details class="concept-note"><summary>Baca konsep sebelum mencoba</summary><p>{lesson.concept}</p>{prerequisites&&<p>Fondasi sebelumnya: <a href={`/belajar/${prerequisites.id}`}>{prerequisites.title}</a>.</p>}</details>
+  <section id="contoh-cpa"><CPAExample lessonId={lesson.id}/></section>
+  <LessonPractice lessonId={lesson.id} client:load/>
+</>}
+</AppLayout>

@@ -1,0 +1,9 @@
+---
+import Brand from "./Brand.astro";
+---
+<nav class="lab-navigation" aria-label="Kembali dari lab"><Brand compact tagline={false} /><a href="/lab">← Semua lab</a><a href="/belajar">Materi kelas 1–6</a></nav>
+<style>
+  .lab-navigation { display: flex; align-items: center; gap: var(--space-lg); flex-wrap: wrap; margin-block-end: var(--space-lg); }
+  .lab-navigation a { display: inline-flex; align-items: center; min-height: 3rem; color: var(--color-group-a-deep); text-underline-offset: .2em; white-space: nowrap; }
+  .lab-navigation a:focus-visible { outline: var(--rule-frame) solid var(--color-focus); outline-offset: 3px; }
+</style>

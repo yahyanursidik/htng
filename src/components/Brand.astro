@@ -1,0 +1,22 @@
+---
+interface Props { compact?: boolean; tagline?: boolean }
+const {compact = false, tagline = true} = Astro.props;
+---
+<a class:list={["brand", {"brand--compact": compact}]} href="/" aria-label="PahamHitung — Beranda">
+  <picture class="brand__art">
+    <img src="/brand/pahamhitung-logo.png" alt="PahamHitung" width="1254" height="1254" decoding="async" />
+  </picture>
+  {tagline && <span class="brand__tagline">Memahami matematika</span>}
+</a>
+<style>
+  .brand { display: block; flex: 1; min-width: 10rem; text-decoration: none; font-family: var(--font-display); }
+  /* Display only the artwork area of the supplied square image. The original
+     asset, colors, ten-frame and wordmark remain unmodified. Reserve space
+     before decoding so the header does not shift when the image loads. */
+  .brand__art { display: block; position: relative; width: 10rem; max-width: 100%; aspect-ratio: 1120 / 550; overflow: hidden; }
+  .brand__art img { position: absolute; display: block; width: 111.964286%; max-width: none; height: auto; left: -6.25%; top: -69.090909%; }
+  .brand--compact { flex: 0 1 auto; min-width: 9rem; }
+  .brand--compact .brand__art { width: 9rem; }
+  .brand:focus-visible { outline: var(--rule-frame) solid var(--color-focus); outline-offset: 3px; }
+  @media(min-width:40rem) { .brand:not(.brand--compact) .brand__art { width: 11.25rem; } }
+</style>

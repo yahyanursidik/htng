@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>PahamHitung</title>
+  <rect width="64" height="64" rx="12" fill="white"/>
+  <!-- Compact ten-frame companion to the supplied logo: four gold counters,
+       three blue counters and a plus sign; not a replacement wordmark. -->
+  <rect x="3" y="18" width="58" height="28" rx="4" fill="white" stroke="#064d96" stroke-width="2.4"/>
+  <path d="M15 19v26m11-26v26m12-26v26m11-26v26M4 32h56" fill="none" stroke="#064d96" stroke-width="1.6"/>
+  <g fill="#ffae0b"><circle cx="9" cy="25" r="4"/><circle cx="21" cy="25" r="4"/><circle cx="32" cy="25" r="4"/><circle cx="44" cy="25" r="4"/></g>
+  <g fill="#247ee5"><circle cx="9" cy="39" r="4"/><circle cx="21" cy="39" r="4"/><circle cx="32" cy="39" r="4"/></g>
+  <path d="M55 21.5v7m-3.5-3.5h7" stroke="#064d96" stroke-width="2.4" stroke-linecap="round"/>
+</svg>

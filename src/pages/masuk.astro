@@ -1,0 +1,5 @@
+---
+import AppLayout from "../layouts/AppLayout.astro";
+import AuthForm from "../components/account/AuthForm";
+---
+<AppLayout title="Masuk"><div class="auth-layout"><header><h1>Masuk sebagai pendamping.</h1><p>Buka profil anak dan catatan belajar keluarga. Anak tidak perlu akun atau email sendiri.</p><a href="/belajar">Tetap belajar sebagai tamu</a></header><section class="auth-panel" aria-label="Formulir masuk"><AuthForm mode="login" client:load/></section></div></AppLayout>

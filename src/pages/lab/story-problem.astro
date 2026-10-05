@@ -1,0 +1,9 @@
+---
+import { StoryProblemActivity } from "../../components/math/StoryProblem/StoryProblemActivity";
+import { generateStoryProblem } from "../../learning/addition/story-problem-generator";
+import "../../styles/base.css";
+import LabNavigation from "../../components/LabNavigation.astro";
+import BrandMetadata from "../../components/BrandMetadata.astro";
+const problem = generateStoryProblem({ seed: 20260819, scaffold: "objects-visible" });
+---
+<!doctype html><html lang="id"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" /><meta name="description" content="Cerita penjumlahan sederhana." /><title>Cerita Penjumlahan · PahamHitung</title><BrandMetadata /></head><body><main class="activity-page"><LabNavigation/><StoryProblemActivity problem={problem} client:load /></main></body></html>

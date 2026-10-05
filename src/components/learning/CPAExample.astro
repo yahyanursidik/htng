@@ -1,0 +1,41 @@
+---
+import CPAWorkedPicture from "./CPAWorkedPicture";
+import {generateQuestion} from "../../learning/curriculum/engine";
+import {getLesson} from "../../learning/curriculum/catalog";
+import {games} from "../../learning/cpa/engine";
+const {lessonId}=Astro.props;
+const lesson=getLesson(lessonId),q=generateQuestion(lessonId,17),game=games.find(g=>g.lessonId===lessonId);
+const materials:Record<string,string>={
+  menghitung:"Sendok atau balok besar. Susun sebanyak contoh lalu sentuh setiap benda satu kali.",
+  menjumlah:"Dua kelompok sendok dengan banyak sesuai cerita. Gabungkan keduanya tanpa menghilangkan benda.",
+  mengurangi:"Sendok sebanyak kelompok awal. Ambil sebagian sesuai cerita; pisahkan dari yang masih ada.",
+  membandingkan:"Dua kelompok sendok sesuai banyaknya pada contoh. Pasangkan satu-satu dan lihat benda yang tidak berpasangan.",
+  bangun:"Kertas berbentuk bangun pada contoh. Telusuri setiap sisi lurus dengan jari, mulai dan berakhir di pojok yang sama.",
+  "nilai-tempat":"Sedotan yang diikat sepuluh-sepuluh dan beberapa lepas, sesuai puluhan dan satuan pada contoh.",
+  "tambah-puluhan":"Ikatan sepuluh sedotan dan sedotan lepas untuk kedua bilangan. Gabungkan, lalu ikat setiap sepuluh satuan menjadi puluhan.",
+  "kurang-puluhan":"Ikatan sepuluh sedotan untuk bilangan awal. Jika satuan tidak cukup, buka satu ikatan sebelum mengambil jumlah yang diminta.",
+  waktu:"Jam mainan. Putar dari waktu mulai ke waktu selesai; satu jam adalah perpindahan antardua tanda jam.",
+  panjang:"Potongan kertas sama panjang 1 cm. Susun unit sesuai contoh tanpa celah atau tumpang tindih.",
+  perkalian:"Piring dan sendok sesuai banyak kelompok dan isi tiap kelompok. Periksa bahwa semua kelompok sama besar.",
+  pembagian:"Sendok sesuai jumlah awal dan wadah sesuai banyak kelompok. Bagikan satu per wadah setiap putaran hingga habis.",
+  pecahan:"Satu pita kertas. Lipat menjadi bagian sama besar sesuai penyebut, lalu tandai sebanyak pembilang pada contoh.",
+  keliling:"Kertas persegi panjang sesuai ukuran contoh dan benang. Telusuri seluruh tepinya, bukan mengisi bagian dalam.",
+  diagram:"Sendok mewakili pensil dan buku pada contoh. Susun dua tumpukan lalu cocokkan benda satu-satu untuk menemukan selisih.",
+  "pecahan-senilai":"Dua pita kertas dengan panjang utuh sama. Lipat menjadi empat dan delapan bagian, lalu cocokkan panjang bagian terpilih.",
+  luas:"Potongan kertas persegi 1 cm². Tutupi persegi panjang sesuai panjang dan lebar contoh, tanpa celah atau tumpang tindih.",
+  sudut:"Pensil sebagai penunjuk dan lingkaran kertas dibagi empat. Putar penunjuk sebanyak bagian putaran yang diminta.",
+  faktor:"Sendok sesuai total contoh. Susun dalam baris sama banyak tanpa sisa, sesuai banyak baris pada pertanyaan.",
+  satuan:"Meteran dengan tanda meter dan sentimeter. Tunjukkan bahwa panjang yang sama mempunyai dua nama satuan.",
+  desimal:"Satu pita kertas dilipat sepuluh sama besar. Tandai bagian sesuai pembilang, lalu hubungkan dengan persepuluhan.",
+  "tambah-pecahan":"Dua pita dengan ukuran utuh sama, masing-masing dilipat dua belas sama besar. Gabungkan bagian terpilih pada pita hasil dengan ukuran utuh yang sama.",
+  volume:"Kubus mainan satuan. Susun panjang, lebar, dan banyak lapisan sesuai contoh; hitung seluruh kubus, bukan hanya permukaan atas.",
+  persen:"Kertas berkotak 10 × 10. Tandai bagian sesuai contoh. Empat bagian besar pada gambar masing-masing mewakili 25 kotak kecil.",
+  "rata-rata":"Tiga tumpukan sendok sesuai data contoh. Pindahkan dari tumpukan besar ke kecil sampai rata tanpa mengubah total.",
+  perbandingan:"Kartu gelas dan kartu sendok. Susun resep awal, lalu gandakan kedua jenis kartu dengan faktor yang sama untuk resep baru.",
+  diskon:"Empat kartu kertas uang buatan bernilai sama yang bersama-sama mewakili harga awal. Sisihkan seperempat sebagai potongan; tiga kartu adalah harga yang dibayar.",
+  "bilangan-negatif":"Garis bilangan pada kertas dan satu penanda. Mulai di posisi pada soal; geser satu ruas untuk setiap langkah mundur, termasuk setelah nol.",
+  "urutan-operasi":"Piring dan sendok. Gabungkan benda di dalam kurung untuk isi satu piring, lalu buat sebanyak kelompok yang diminta.",
+  median:"Lima kartu berisi nilai pada contoh. Urutkan dari kecil ke besar sebelum memilih kartu tengah.",
+};
+---
+<details class="concept-note cpa-example"><summary>Contoh CPA: benda → gambar → simbol</summary><p>Contoh terbimbing berikut berbeda dari soal latihan. Boleh kembali ke representasi yang membantu.</p><h3>Contoh yang diperagakan</h3><p>{q.prompt}</p><h3>C — Benda nyata</h3><p>{materials[lessonId]}</p><p class="muted">Gunakan angka pada contoh di atas dan benda aman bersama pendamping. Kegiatan nyata tidak dinilai oleh aplikasi.</p><h3>P — Gambar</h3><CPAWorkedPicture question={q} client:visible/><p>Hubungkan setiap kelompok atau unit pada gambar dengan benda yang sama. Gambar di layar adalah representasi digital, bukan benda nyata.</p><h3>A — Simbol dan alasan</h3><p>{q.explanation}</p><p>{q.reasons[q.correctReason]}</p><h3>Coba konteks lain tanpa layar</h3><p>{lesson.offline}</p><div class="actions">{game&&<a class="button button--quiet" href={`/cpa/${game.id}`}>Mainkan konsep ini</a>}<a href="/cpa">Jelajahi CPA</a></div></details>

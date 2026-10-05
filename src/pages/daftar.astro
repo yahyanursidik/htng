@@ -1,0 +1,5 @@
+---
+import AppLayout from "../layouts/AppLayout.astro";
+import AuthForm from "../components/account/AuthForm";
+---
+<AppLayout title="Daftar"><div class="auth-layout"><header><h1>Satu akun untuk keluarga.</h1><p>Daftar sebagai pendamping, buat profil menggunakan nama panggilan anak, lalu pilih kelas belajar.</p><p>Catatan tersimpan pada server aplikasi ini. Pada localhost, data berada di komputer yang menjalankan server.</p><a href="/belajar">Coba belajar tanpa akun</a></header><section class="auth-panel" aria-label="Formulir pendaftaran"><AuthForm mode="register" client:load/></section></div></AppLayout>

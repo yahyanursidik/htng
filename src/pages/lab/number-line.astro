@@ -1,0 +1,26 @@
+---
+import { NumberLineActivity } from "../../components/math/NumberLine/NumberLineActivity";
+import { generateNumberLineProblem } from "../../learning/addition/number-line-generator";
+import "../../styles/base.css";
+import LabNavigation from "../../components/LabNavigation.astro";
+import BrandMetadata from "../../components/BrandMetadata.astro";
+
+const problem = generateNumberLineProblem({ seed: 20260817 });
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="Aktivitas garis bilangan untuk memahami counting-on pada penjumlahan." />
+    <title>Garis Bilangan · PahamHitung</title>
+    <BrandMetadata />
+  </head>
+  <body>
+    <main class="activity-page">
+      <LabNavigation />
+      <NumberLineActivity problem={problem} client:load />
+    </main>
+  </body>
+</html>

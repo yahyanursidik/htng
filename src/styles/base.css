@@ -1,0 +1,58 @@
+@import "@fontsource-variable/atkinson-hyperlegible-next";
+@import "@fontsource-variable/nunito";
+@import "./tokens.css";
+@import "./reference-theme.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-width: 20rem;
+  margin: 0;
+  overflow-x: clip;
+}
+
+html {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 100%;
+  line-height: 1.55;
+}
+
+body {
+  min-height: 100svh;
+  background: var(--color-paper);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+.activity-page {
+  width: min(100%, 64rem);
+  margin-inline: auto;
+  padding-block: clamp(var(--space-lg), 4vw, var(--space-2xl));
+  padding-inline: max(var(--space-md), env(safe-area-inset-left));
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

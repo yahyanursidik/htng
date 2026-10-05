@@ -1,0 +1,29 @@
+---
+import { SymbolicAdditionActivity } from "../../components/math/SymbolicAddition/SymbolicAdditionActivity";
+import { generateSymbolicAdditionProblem } from "../../learning/addition/symbolic-addition-generator";
+import "../../styles/base.css";
+import LabNavigation from "../../components/LabNavigation.astro";
+import BrandMetadata from "../../components/BrandMetadata.astro";
+
+const problem = generateSymbolicAdditionProblem({
+  seed: 20260818,
+  scaffold: "bridge-visible",
+});
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="Aktivitas bentuk angka untuk memahami penjumlahan." />
+    <title>Bentuk Angka · PahamHitung</title>
+    <BrandMetadata />
+  </head>
+  <body>
+    <main class="activity-page">
+      <LabNavigation />
+      <SymbolicAdditionActivity problem={problem} client:load />
+    </main>
+  </body>
+</html>

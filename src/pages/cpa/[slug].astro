@@ -1,0 +1,8 @@
+---
+import AppLayout from "../../layouts/AppLayout.astro";
+import CPAGame from "../../components/learning/CPAGame";
+import {games} from "../../learning/cpa/engine";
+export function getStaticPaths(){return games.map(game=>({params:{slug:game.id},props:{game}}));}
+const {game}=Astro.props;
+---
+<AppLayout title={game.title} learning><a class="back-link" href="/cpa">← Semua permainan CPA</a><header class="lesson-heading"><h1>{game.title}</h1><p>Kelas {game.grade} · {game.description}</p></header><CPAGame gameId={game.id} client:load/><section class="support-band"><h2>Hubungkan ke latihan materi</h2><a href={`/belajar/${game.lessonId}#contoh-cpa`}>Buka konsep, contoh CPA, dan latihan</a><p>Catatan permainan ini hanya di browser, meskipun pendamping sudah masuk akun.</p></section></AppLayout>

@@ -1,0 +1,5 @@
+---
+import AppLayout from "../../layouts/AppLayout.astro";
+import { labActivities } from "../../learning/lab-catalog";
+---
+<AppLayout title="Lab penjumlahan"><header class="page-heading"><h1>Belajar penjumlahan dengan memahami.</h1><p>Pilih aktivitas konkret, gambar, cerita, atau simbol. Aktivitas lama tetap tersedia tanpa akun, dengan catatan anonim perangkatnya sendiri.</p><a href="/belajar">Lihat materi kelas 1–6</a></header><nav aria-label="Aktivitas penjumlahan"><ul class="lesson-list">{labActivities.map(a=><li><div><h2>{a.title}</h2><p>{a.body}</p></div><a class="button button--quiet" href={a.href}>Buka aktivitas</a></li>)}</ul></nav></AppLayout>
