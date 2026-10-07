@@ -1,0 +1,10 @@
+---
+import AppLayout from '../../layouts/AppLayout.astro';
+import VisualExampleCatalogue from '../../components/learning/VisualExampleCatalogue';
+---
+<AppLayout title="Contoh visual" description="60 contoh matematika kelas 1–6 dengan mobil, motor, mangga, stroberi, dan semangka: benda, gambar, simbol, serta latihan.">
+  <header class="page-heading"><h1>Matematika yang bisa dibayangkan.</h1><p>Mobil, motor, mangga, stroberi, dan semangka membantu menjelaskan hubungan bilangan. Pilih konsep, lihat contoh, lalu coba latihan dengan angka berbeda.</p></header>
+  <p>Mulai dari menghitung satu per satu. Kelas adalah panduan urutan, bukan batas kemampuan. Contoh ini mendampingi materi dan permainan CPA yang sudah ada.</p>
+  <VisualExampleCatalogue client:load />
+  <noscript><p>Semua contoh tetap bisa dibuka. Aktifkan JavaScript untuk memakai filter dan latihan interaktif.</p></noscript>
+</AppLayout>

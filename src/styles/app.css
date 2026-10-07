@@ -258,3 +258,6 @@ input:disabled,select:disabled { color: var(--color-muted); }
   .site-header--learning nav { margin-inline: 0; }
   .auth-layout { grid-template-columns: minmax(0,1.2fr) minmax(0,1fr); padding-block: var(--space-lg); }
 }
+
+/* Allow the added calculator destination to wrap without hiding any links. */
+.site-header nav { flex-wrap: wrap; row-gap: 0; }

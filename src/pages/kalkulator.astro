@@ -1,0 +1,9 @@
+---
+import AppLayout from "../layouts/AppLayout.astro";
+import ExplainingCalculator from "../components/learning/ExplainingCalculator";
+---
+<AppLayout title="Kalkulator penjelas" description="Kalkulator tambah, kurang, kali, dan bagi dengan langkah penyelesaian dan cara memeriksa hasil untuk anak SD.">
+  <header class="page-heading"><h1>Kalkulator yang menjelaskan.</h1><p>Tulis dua bilangan, pilih operasi, lalu pahami cara mendapatkan hasilnya. Boleh mulai tanpa akun. Pilih Cara biasa atau Bersusun untuk melihat hubungan nilai tempat.</p><a class="back-link" href="/bersusun">Panduan bersusun →</a></header>
+  <ExplainingCalculator client:load />
+  <noscript><p>Kalkulator membutuhkan JavaScript. <a href="/belajar">Buka materi konsep</a> untuk membaca contoh benda, gambar, dan simbol tanpa JavaScript.</p></noscript>
+</AppLayout>
