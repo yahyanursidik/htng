@@ -1,0 +1,12 @@
+---
+import AppLayout from '../../layouts/AppLayout.astro';
+import VisualExample from '../../components/learning/VisualExample';
+import {examples} from '../../learning/visual-examples/engine';
+export function getStaticPaths(){return examples.map(example=>({params:{slug:example.id},props:{example}}));}
+const {example}=Astro.props;
+---
+<AppLayout title={example.title} learning={true}>
+  <header class="page-heading"><a href={`/contoh#kelas-${example.grade}`}>← Semua contoh kelas {example.grade}</a><p>Kelas {example.grade} · Benda → gambar → simbol</p><h1>{example.title}</h1></header>
+  <VisualExample exampleId={example.id} client:load />
+  <noscript><p>Penjelasan dapat dibaca tanpa JavaScript. Aktifkan JavaScript untuk menandai gambar, membagikan benda, atau mencoba latihan.</p></noscript>
+</AppLayout>

@@ -1,0 +1,48 @@
+/* Hallmark · component: explaining calculator · genre: playful · theme: design.md
+ * Component-scope: no macrostructure, no new nav/footer archetype or enrichment.
+ * Existing Nunito/Atkinson, named tokens, flat white/green system preserved.
+ * Audience: SD · use: understand steps · motion: cut, except inherited press.
+ * States: default, hover, focus, active, disabled/loading before hydration,
+ * error with linked text, success with worked solution; no timed celebration.
+ * Pre-emit critique: P5 H4 E4 S5 R5 V4.
+ */
+.calculator { max-width: 58rem; display: grid; gap: var(--space-lg); }
+.calculator__form { max-width: 50rem; }
+.calculator__legend { font: 900 var(--text-lg)/1.2 var(--font-display); margin-block-end: var(--space-lg); }
+.calculator__inputs { display: grid; gap: var(--space-md); align-items: start; }
+.calculator__inputs input { font-size: var(--text-md); font-variant-numeric: tabular-nums; }
+.calculator__inputs input,.calculator__inputs select { min-height: 3.75rem; }
+.calculator__helper { margin: 0; min-height: 1lh; font-size: var(--text-sm); }
+.calculator__alert:empty { display: none; }
+.calculator__alert { color: var(--color-error); }
+.calculator__status { min-height: 1lh; margin-block-end: 0; }
+.calculator__empty { border-block-start: var(--rule-thin) solid var(--color-divider); padding-block-start: var(--space-lg); }
+.calculator__result { border-block: var(--rule-thin) solid var(--color-divider); padding-block: var(--space-lg); }
+.calculator__result h2 { margin-block-start: 0; }
+.calculator__equation { font: 800 clamp(var(--text-lg),4vw,var(--text-2xl))/1.35 var(--font-display); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; color: var(--color-ink); }
+.calculator__equation strong { color: var(--color-heading); }
+.calculator__precision { color: var(--color-ink); }
+.calculator__steps { padding-inline-start: var(--space-lg); display: grid; gap: var(--space-lg); }
+.calculator__steps li::marker { font-weight: 800; color: var(--color-link); }
+.calculator__steps h4 { margin: 0; font: 800 var(--text-md)/1.3 var(--font-display); overflow-wrap: anywhere; }
+.calculator__steps p { margin-block: var(--space-xs) 0; }
+.calculator__step-equation { font-size: var(--text-md); font-weight: 700; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.calculator__check { overflow-wrap: anywhere; }
+.calculator__lesson { min-height: 3rem; display: inline-flex; align-items: center; white-space: nowrap; }
+.calculator__examples h2 { margin-block: 0 var(--space-sm); }
+.calculator button.is-focus { outline: var(--rule-frame) solid var(--color-focus); outline-offset: 3px; }
+.calculator button.is-active { transform: translateY(1px); }
+.calculator [data-state=error] { border-color: var(--color-error); }
+.calculator [data-state=success] { border-color: var(--color-success); }
+.calculator [data-state=loading] { cursor: wait; }
+@media(hover:hover) and (pointer:fine) {
+  .calculator button.quiet:hover,.calculator button.quiet.is-hover { background: var(--color-hint-surface); color: var(--color-link); }
+  .calculator button[type=submit]:hover { background: var(--color-accent-soft); color: var(--color-accent-ink); }
+}
+@media(min-width:40rem) { .calculator__inputs { grid-template-columns: minmax(0,1fr) minmax(9rem,.7fr) minmax(0,1fr); } }
+@media(prefers-reduced-motion:reduce) { .calculator button,.calculator input { transition: none; } .calculator button:active,.calculator button.is-active { transform: none; } }
+
+/* Keep this tool usable when the browser's default text size is doubled. */
+html:has(.calculator),body:has(.calculator) { min-width: 0; }
+body:has(.calculator) .site-header .brand { min-width: 0; }
+body:has(.calculator) .site-footer__brand { overflow-wrap: anywhere; }

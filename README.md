@@ -1,7 +1,9 @@
 # PahamHitung
 ## Web Simulasi Penjumlahan SD — Fase A, B, C
 
-> Status: Lab penjumlahan + 30 aktivitas inti dengan contoh CPA + 14 permainan CPA + akun pendamping lokal  
+Versi aplikasi: **0.2.0**. Lihat [catatan versi](CHANGELOG.md) untuk perubahan, batas cakupan, dan hasil verifikasi.
+
+> Status: Lab penjumlahan + 30 aktivitas inti dengan contoh CPA + 14 permainan CPA + 60 contoh visual + kalkulator penjelas + akun pendamping lokal
 > Stack utama: Astro 7.2+ · TypeScript · Preact · Node 24+ · SQLite  
 > Design guardrail: Hallmark + project-specific Anti-AI-Slop  
 > Fokus modul pertama: Penjumlahan
@@ -9,6 +11,19 @@
 ---
 
 ## Jalankan aplikasi lengkap
+
+### Contoh visual kelas 1–6
+
+Menu **Contoh** dan tombol **Contoh visual** di Belajar membuka `/contoh`: 5 konteks (mobil, motor, mangga, stroberi, semangka) × 12 konsep dasar. Filter kelas/benda, lalu buka penjelasan CPA dan latihan dengan bilangan berbeda. Ini pendamping materi, bukan seluruh silabus SD.
+
+- Benda konkret berupa kegiatan aman bersama pendamping; SVG di layar adalah representasi gambar. Kendaraan menggunakan mainan/kartu, pecahan menggunakan kertas, tanpa jalan raya atau pisau.
+- Satu gambar mewakili satu unit kecuali keranjang yang jumlah isinya disebutkan. Pengurangan mencoret benda awal; kelompok puluhan berisi 10; pembagian bergiliran mempertahankan total; pecahan memakai satu utuh berukuran sama dengan bagian sama besar.
+- Domain `src/learning/visual-examples/engine.ts` menggunakan generator kurikulum, seed deterministik, serta bank variasi yang mengecualikan contoh terbimbing. Evaluator kurikulum memeriksa bilangan dan alasan secara terpisah; tiga petunjuk membuka konsep, cara, lalu hasil. Menandai gambar tidak mengubah jumlah. Gambar boleh disembunyikan/dibuka manual jika seluruh informasi tetap tersedia pada soal.
+- Bukti percobaan hanya di memori selama latihan terbuka: seed, jawaban/alasan, ketepatan, petunjuk, gambar, tanda hitung, dan pembagian. Tidak menulis profil, localStorage, atau Catatan keluarga; tidak menyatakan penguasaan mandiri. Pergantian latihan/halaman menghapus bukti sementara.
+- Penjelasan dan semua tautan tetap terbaca tanpa JavaScript. Interaksi memakai kontrol native, fokus keyboard, penamaan gambar, target 48 px, reduced motion, dan tata letak responsif.
+- Tes: `tests/unit/visual-examples.test.ts`, `tests/components/VisualExample.test.tsx`, dan `tests/e2e/visual-examples.spec.ts`. Jalankan pemeriksaan yang tercantum di bawah sebelum menyerahkan perubahan.
+
+### Server lokal
 
 Node.js 24 atau lebih baru diperlukan untuk SQLite dan modul TypeScript yang dibaca backend. Tidak diperlukan layanan auth eksternal atau API key.
 
@@ -49,6 +64,14 @@ npm run test:all
 Menjalankan pemeriksaan tipe, unit/component tests, tes API/security, build, dan Playwright. Tes API dan Playwright memakai database terpisah dalam memori, tidak mengubah data keluarga asli.
 
 Lihat [kontrak pengembangan SD dan akun](SD-LEARNING-AND-ACCOUNTS.md) untuk API, penyimpanan, batas cakupan, dan persiapan deployment. Versi ini belum mencakup seluruh silabus SD, verifikasi/pemulihan email, atau deployment cloud. Jangan deploy output statis saja dan menganggap fitur akun sudah tersedia.
+
+## Kalkulator penjelas
+
+Buka `/kalkulator` dari navigasi utama atau lab. Masukkan dua bilangan dan pilih tambah, kurang, kali, atau bagi. Hasil disertai langkah nilai tempat/dekomposisi/pembagian dan pemeriksaan dengan operasi kebalikannya. Tersedia contoh yang dapat diubah. Desimal menerima koma atau titik, tanpa pemisah ribuan, maksimal 6 digit sebelum dan 3 digit sesudah pemisah; bilangan negatif didukung. Ekspresi bertingkat, persen, dan input pecahan belum termasuk cakupan.
+
+Mesin murni `src/learning/calculator/engine.ts` memakai pecahan BigInt agar desimal tidak mengalami galat floating-point. Pembagian nol dijelaskan dan ditolak. Jika hasil tidak mempunyai desimal tepat hingga 6 tempat, tampilkan pecahan tepat dan pendekatan desimal bertanda ≈ (pembulatan setengah menjauh dari nol). Langkah dan pemeriksaan selalu memakai nilai tepat. Kalkulator sepenuhnya lokal, tidak memanggil API, tidak menyimpan angka/hasil, dan tidak menambah evidence atau penguasaan pada profil anak. UI satu Preact island; Enter menghitung, hasil menerima fokus, edit menghapus hasil lama, kesalahan terkait input, gerakan berkurang dihormati. Domain/component/Playwright menguji hasil, langkah, validasi, keyboard, responsif, dan regresi navigasi.
+
+Runner Playwright menerima argumen CLI, misalnya `npm run test:e2e -- --workers=2` jika pengujian paralel membebani komputer.
 
 ---
 
@@ -176,7 +199,15 @@ Bukan sekadar jika anak mengerjakan banyak soal.
 
 ---
 
-## 7. Hallmark
+## 7. Panduan dan kalkulator bersusun
+
+`/bersusun` menjelaskan tambah, kurang, kali, dan bagi lewat nilai tempat, pertukaran, hasil bagian, dan sisa. Contoh beserta seluruh penjelasannya tersedia tanpa JavaScript. `/kalkulator?cara=bersusun` membuka mode bersusun; Cara biasa tetap mendukung desimal, negatif, dan pecahan tepat.
+
+Mesin murni `src/learning/calculator/column-engine.ts` menghasilkan snapshot tabel per langkah; komponen `ColumnDiagram` menampilkan baris dan kolom semantik, sedangkan `ColumnSolution` mengatur navigasi/fokus keyboard. Pengurangan mempertahankan nilai bilangan awal pada setiap pertukaran, termasuk lintasan nol; perkalian menjumlahkan hasil bagian sesuai tempat; pembagian mempertahankan nol hasil bagi dan memeriksa `a = b × q + r`, `0 ≤ r < b`. Tidak ada penyimpanan, pengiriman bilangan, atau penambahan evidence/mastery dari membaca solusi.
+
+Batas bersusun: masukan digit bilangan bulat 0–9999 tanpa pemisah ribuan; pengali maksimal 999, pembagi 1–99, dan pengurangan tidak menghasilkan negatif. Masukan di luar batas ditolak dengan arahan ke Cara biasa, bukan dibulatkan/dipotong. Hasil perkalian dapat mencapai tujuh digit. Tes mencakup snapshot deterministik, invariant nilai tempat, kasus nol/sisa, fokus/error/reset, keyboard, ukuran layar 320–1440, teks 200%, reduced motion, dan panduan tanpa JavaScript.
+
+## 8. Hallmark
 
 Hallmark digunakan sebagai lapisan kualitas desain dan anti-AI-slop.
 
