@@ -17,6 +17,11 @@ describe('column calculator',()=>{
     fireEvent.click(screen.getByRole('button',{name:'Langkah berikut'}));await waitFor(()=>expect(screen.getByTestId('column-step-title')).toHaveFocus());
     expect(screen.getByTestId('column-step-title')).toHaveTextContent('Jumlahkan satuan');
     expect(screen.getByRole('table')).toHaveAccessibleName(/Jumlahkan satuan/);expect(screen.getByTestId('column-explanation')).toHaveTextContent(/15 satuan ditukar menjadi 1 puluhan/);
+    expect(screen.getByLabelText('Arti penanda')).toHaveTextContent('Baca digitTukar / teruskanTulis hasil');
+    expect(screen.getByLabelText('Bantuan langkah ini')).toHaveTextContent('teruskan 1 puluhan ke kiri');
+    expect(screen.getByRole('table').querySelectorAll('td[data-cue=write]')).toHaveLength(1);
+    expect(screen.getByRole('table').querySelector('td[data-cue=write]')).toHaveTextContent('Tulis: kolom satuan');
+    expect(document.querySelector('.column-arrows')).toHaveAttribute('aria-hidden','true');
     fireEvent.click(screen.getByRole('button',{name:'Langkah sebelumnya'}));await waitFor(()=>expect(screen.getByTestId('column-step-title')).toHaveFocus());expect(screen.getByTestId('column-step-title')).toHaveTextContent('Sejajarkan nilai tempat');
   });
   it('reveals exchanges over zero without changing the minuend',()=>{
@@ -30,6 +35,21 @@ describe('column calculator',()=>{
     expect(screen.getByText(/4 × 4 \+ 1 = 17/)).toBeVisible();
     fill('1005','divide','5');expect(screen.getByTestId('calculator-result')).toHaveTextContent('hasil bagi 201, sisa 0');
     expect(screen.getByTestId('column-step-title')).toHaveTextContent('Mulai membaca dari kiri');
+  });
+  it('shows the conventional division bracket and each separate direction without autoplay',()=>{
+    column();fill('1005','divide','5');
+    expect(document.querySelector('.column-stack--divide')).toBeInTheDocument();
+    expect(document.querySelector('.column-row--operand th')).toHaveTextContent('pembagi 5');
+    const next=()=>fireEvent.click(screen.getByRole('button',{name:'Langkah berikut'}));
+    next();expect(screen.getByTestId('column-step-title')).toHaveTextContent('Baca bagian 1');
+    expect(document.querySelector('.column-direction')).toHaveTextContent('→');
+    next();expect(screen.getByTestId('column-step-title')).toHaveTextContent('Bagi bagian 10');
+    expect(document.querySelector('.column-direction')).toHaveTextContent('↑');
+    next();expect(screen.getByTestId('column-step-title')).toHaveTextContent('Kalikan 5 dengan 2');
+    next();expect(screen.getByTestId('column-step-title')).toHaveTextContent('Kurangi untuk menemukan sisa');
+    next();expect(screen.getByTestId('column-step-title')).toHaveTextContent('Turunkan digit 0');
+    expect(screen.getByLabelText('Bantuan langkah ini')).toHaveTextContent('Digit 0 turun');
+    expect(document.querySelector('.column-row--result .column-digit')?.textContent).toBe(' ');
   });
   it('clears stale diagrams on edits and method switches, preserves numbers and ordinary functionality',()=>{
     column();fill('12','multiply','4');expect(screen.getByRole('table')).toBeVisible();
